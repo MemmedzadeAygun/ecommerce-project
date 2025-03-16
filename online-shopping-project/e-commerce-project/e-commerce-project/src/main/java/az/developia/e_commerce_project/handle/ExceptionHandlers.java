@@ -3,9 +3,11 @@ package az.developia.e_commerce_project.handle;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import az.developia.e_commerce_project.exception.OurRuntimeException;
@@ -16,6 +18,7 @@ import az.developia.e_commerce_project.response.ValidationResponse;
 public class ExceptionHandlers {
 
 	@ExceptionHandler
+	@ResponseStatus(code = HttpStatus.BAD_REQUEST)
 	public ExceptionResponse handle(OurRuntimeException exc) {
 		ExceptionResponse response = new ExceptionResponse();
 

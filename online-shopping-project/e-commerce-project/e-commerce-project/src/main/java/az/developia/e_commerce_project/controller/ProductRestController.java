@@ -3,10 +3,14 @@ package az.developia.e_commerce_project.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,16 +25,19 @@ import az.developia.e_commerce_project.exception.OurRuntimeException;
 import az.developia.e_commerce_project.requestDto.ProductRequestDto;
 import az.developia.e_commerce_project.response.ProductResponse;
 import az.developia.e_commerce_project.service.ProductService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(path = "/products")
+@CrossOrigin(origins = "*")
 public class ProductRestController {
 
 	@Autowired
 	private ProductService productService;
+	
+	
 
 	@PostMapping(path = "/create")
+	@PreAuthorize(value = "hasAuthority('ROLE_ADD_PRODUCT')")
 	public ResponseEntity<ProductRequestDto> createProduct(@Valid @RequestBody ProductRequestDto dto,
 			BindingResult result) throws OurRuntimeException {
 		if (result.hasErrors()) {
@@ -95,6 +102,8 @@ public class ProductRestController {
 		
 		return ResponseEntity.ok("Product update successfully");
 	}
+	
+	
 	
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<String> deleteProduct(@PathVariable Integer id) {

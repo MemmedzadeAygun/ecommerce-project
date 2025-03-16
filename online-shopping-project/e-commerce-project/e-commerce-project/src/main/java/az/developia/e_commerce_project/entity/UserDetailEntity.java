@@ -1,6 +1,5 @@
 package az.developia.e_commerce_project.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,20 +14,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "products")
-public class ProductEntity {
+@Table(name = "userdetails")
+public class UserDetailEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String brand;
-	private String model;
-	private String category;
-	private String description;
-	private Double price;
-	private Integer rating;
-	
-	@Column(columnDefinition = "TEXT")
-	private String imgUrl;
-	
+	private String name;
+	private String surname;
+	private String username;
 }
